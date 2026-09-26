@@ -1,0 +1,560 @@
+/* ==========================================================
+   Даниил Бубнов — портфолио
+   Идея: сайт как холст в редакторе. Кейсы — фреймы на холсте,
+   при наведении их «выделяет» рамка с размерами, как в Figma.
+   ========================================================== */
+
+:root {
+  --canvas: #e8e9eb;      /* холст */
+  --frame: #ffffff;       /* фреймы / артборды */
+  --ink: #1a1c1f;         /* основной текст */
+  --muted: #5f656e;       /* второстепенный текст */
+  --line: #cfd3d8;        /* разделители */
+  --select: #0d99ff;      /* цвет выделения */
+  --select-ink: #ffffff;
+  --risk-low: #3fb37f;
+  --risk-mid: #f2b233;
+  --risk-high: #ef5b4c;
+
+  --font: "Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --wrap: 1240px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --text: 64ch;
+
+  color-scheme: light dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --canvas: #1e1e1e;
+    --frame: #2c2c2c;
+    --ink: #eef0f2;
+    --muted: #a3a9b1;
+    --line: #3b3d40;
+  }
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+
+html { scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font: 400 17px/1.55 var(--font);
+  font-feature-settings: "ss01";
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+figure { margin: 0; }
+
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { color: var(--select); }
+
+:focus-visible {
+  outline: 2px solid var(--select);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ---------- шапка ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--canvas) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 64px;
+}
+
+.logo {
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(14px, 3vw, 32px);
+  font-size: 15px;
+}
+
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover, .nav a[aria-current="page"] { color: var(--ink); }
+.nav a[aria-current="page"] { text-decoration: underline; }
+
+/* ---------- главная: первый экран ---------- */
+
+.hero {
+  padding-top: clamp(56px, 12vw, 150px);
+  padding-bottom: clamp(56px, 9vw, 110px);
+}
+
+.hero h1 {
+  display: inline-block;
+  margin: 0;
+  max-width: 17ch;
+  font-size: clamp(40px, 7.2vw, 96px);
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.hero p {
+  margin: 48px 0 0;
+  max-width: 46ch;
+  font-size: clamp(17px, 1.6vw, 20px);
+  color: var(--muted);
+}
+
+/* ---------- кейсы на главной ---------- */
+
+.cases {
+  display: grid;
+  gap: clamp(72px, 10vw, 140px);
+  padding-bottom: clamp(80px, 12vw, 160px);
+}
+
+.case-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.case-card:hover { color: inherit; }
+
+.case-card:focus-visible { outline: none; }
+
+/* подпись фрейма над артбордом — как название фрейма на холсте */
+.frame-name {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.case-card:hover .frame-name,
+.case-card:focus-visible .frame-name { color: var(--select); }
+
+.artboard {
+  background: var(--frame);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+}
+
+.artboard > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-card__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 16px 48px;
+  margin-top: 28px;
+}
+
+.case-card h2 {
+  margin: 0;
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  max-width: 22ch;
+}
+
+.case-card p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  max-width: 48ch;
+}
+
+/* ---------- мета-данные (роль, год и т.д.) ---------- */
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px 24px;
+  margin: 0;
+  font-size: 15px;
+}
+
+.meta dt { color: var(--muted); }
+.meta dd { margin: 2px 0 0; }
+
+/* ---------- рамка выделения ---------- */
+
+.sel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  pointer-events: none;
+  border: 1.5px solid var(--select);
+  opacity: 0;
+  transition:
+    transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+    width 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.2s;
+}
+
+.sel.is-on { opacity: 1; }
+
+.sel.is-jump { transition: opacity 0.2s; }
+
+.sel i {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--frame);
+  border: 1.5px solid var(--select);
+}
+
+.sel i:nth-of-type(1) { top: -5px; left: -5px; }
+.sel i:nth-of-type(2) { top: -5px; right: -5px; }
+.sel i:nth-of-type(3) { bottom: -5px; left: -5px; }
+.sel i:nth-of-type(4) { bottom: -5px; right: -5px; }
+
+.sel__size {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--select);
+  color: var(--select-ink);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- страница кейса ---------- */
+
+.case-hero {
+  padding-top: clamp(40px, 8vw, 96px);
+  padding-bottom: clamp(40px, 6vw, 72px);
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 40px;
+  font-size: 15px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.case-hero h1 {
+  margin: 0;
+  max-width: 20ch;
+  font-size: clamp(36px, 5.6vw, 72px);
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.lead {
+  margin: 28px 0 0;
+  max-width: 52ch;
+  font-size: clamp(18px, 1.7vw, 21px);
+  color: var(--muted);
+}
+
+.case-hero .meta {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  max-width: 880px;
+}
+
+.cover { margin-bottom: clamp(56px, 8vw, 110px); }
+
+.chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
+  gap: 16px 48px;
+  padding: clamp(40px, 6vw, 72px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.chapter h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  position: sticky;
+  top: 88px;
+  align-self: start;
+}
+
+.chapter__text { max-width: var(--text); }
+.chapter__text:has(.quotes) { max-width: none; }
+.chapter__text:has(.quotes) > p { max-width: var(--text); }
+.chapter__text > :first-child { margin-top: 0; }
+.chapter__text > :last-child { margin-bottom: 0; }
+.chapter__text p, .chapter__text ul, .chapter__text ol { margin: 0 0 1em; }
+.chapter__text li + li { margin-top: 0.4em; }
+
+.chapter__text h3 {
+  margin: 1.8em 0 0.5em;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* шаги процесса — настоящая последовательность, поэтому нумерация */
+.steps {
+  list-style: none;
+  padding: 0;
+  counter-reset: step;
+}
+
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 2.2em 1fr;
+}
+
+.steps li::before {
+  content: counter(step);
+  color: var(--select);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.steps li + li { margin-top: 1em; }
+
+.shot { margin: clamp(32px, 5vw, 56px) 0 0; }
+.chapter .shot { grid-column: 1 / -1; }
+
+.shot figcaption {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 28px 40px;
+  margin: 0;
+}
+
+.results dt {
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.results dd { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+
+.next {
+  display: block;
+  padding: clamp(48px, 8vw, 96px) 0;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.next span { display: block; color: var(--muted); font-size: 15px; margin-bottom: 8px; }
+
+.next strong {
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.next:hover strong { color: var(--select); }
+
+/* изображения в кейсе — в натуральных пропорциях */
+.artboard--auto { aspect-ratio: auto; }
+.artboard--auto > img { height: auto; }
+
+.note {
+  margin: 20px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* большая задача внутри кейса */
+.task {
+  padding-top: clamp(64px, 10vw, 140px);
+}
+
+.task__num {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.task h2.task__title {
+  margin: 0 0 clamp(32px, 5vw, 56px);
+  max-width: 22ch;
+  font-size: clamp(30px, 4.4vw, 56px);
+  line-height: 1.06;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.task .chapter:first-of-type { border-top: 0; }
+
+.statement {
+  font-size: clamp(19px, 1.9vw, 23px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quotes blockquote {
+  margin: 0;
+  height: 100%;
+  padding: 20px 22px;
+  background: var(--frame);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.results s {
+  color: var(--muted);
+  font-weight: 400;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--risk-high);
+}
+
+.results .arrow { color: var(--muted); font-weight: 400; margin: 0 0.2em; }
+
+.plain-list { margin: 0; padding-left: 1.1em; }
+
+/* ---------- обо мне ---------- */
+
+.about-hero {
+  padding: clamp(48px, 9vw, 120px) 0 clamp(40px, 6vw, 72px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: end;
+}
+
+.about-hero h1 {
+  margin: 0;
+  font-size: clamp(40px, 6.4vw, 84px);
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.about-hero .lead { margin-top: 24px; }
+
+.about-hero__links {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+  font-size: 16px;
+}
+
+.timeline { list-style: none; margin: 0; padding: 0; }
+
+.timeline > li + li {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+
+.timeline h3 { margin: 0; font-size: 19px; font-weight: 600; }
+
+.timeline .when { display: block; margin-top: 4px; color: var(--muted); font-size: 15px; }
+
+.skills { margin: 0; display: grid; gap: 20px; }
+.skills dt { font-weight: 600; }
+.skills dd { margin: 4px 0 0; color: var(--muted); }
+
+/* ---------- подвал ---------- */
+
+.site-footer {
+  background: var(--frame);
+  padding: clamp(56px, 9vw, 110px) 0 40px;
+}
+
+.site-footer h2 {
+  margin: 0 0 28px;
+  max-width: 20ch;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  font-size: 18px;
+}
+
+.copy {
+  margin-top: clamp(48px, 7vw, 88px);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------- 404 ---------- */
+
+.empty { padding-top: clamp(80px, 16vw, 200px); padding-bottom: clamp(80px, 16vw, 200px); }
+.empty h1 { margin: 0 0 16px; font-size: clamp(36px, 5vw, 64px); letter-spacing: -0.03em; font-weight: 600; }
+
+/* ---------- адаптив ---------- */
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .case-card__body, .chapter, .about-hero { grid-template-columns: 1fr; }
+  .chapter h2 { position: static; }
+  .nav a.nav__ext { display: none; }
+  .artboard { aspect-ratio: 4 / 3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sel { transition: opacity 0.01s; }
+  html { scroll-behavior: auto; }
+}
