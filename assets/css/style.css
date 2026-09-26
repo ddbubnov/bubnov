@@ -12,6 +12,7 @@
   --line: #cfd3d8;        /* разделители */
   --select: #0d99ff;      /* цвет выделения */
   --select-ink: #ffffff;
+  --collab: #9747ff;     /* цвет соавтора */
   --risk-low: #3fb37f;
   --risk-mid: #f2b233;
   --risk-high: #ef5b4c;
@@ -39,7 +40,9 @@
 
 *, *::before, *::after { box-sizing: inherit; }
 
-html { scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+
+html { scroll-padding-top: 56px; -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
@@ -49,6 +52,7 @@ body {
   font-feature-settings: "ss01";
   -webkit-font-smoothing: antialiased;
   position: relative;
+  overflow-x: clip;
 }
 
 img { max-width: 100%; height: auto; display: block; }
@@ -74,40 +78,123 @@ a:hover { color: var(--select); }
   clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-/* ---------- шапка ---------- */
+/* ---------- шапка: строка меню macOS ---------- */
 
-.site-header {
+.menubar {
   position: sticky;
   top: 0;
-  z-index: 20;
-  background: color-mix(in srgb, var(--canvas) 88%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  z-index: 30;
+  background: color-mix(in srgb, var(--canvas) 72%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  font-size: 14px;
 }
 
-.site-header .wrap {
+.menubar__in {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  min-height: 64px;
+  gap: 4px;
+  height: 36px;
+  padding: 0 max(12px, env(safe-area-inset-left, 0px));
 }
 
-.logo {
+.menubar__app {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 6px;
   font-weight: 600;
   text-decoration: none;
-  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
-.nav {
+.menubar__app svg { width: 16px; height: 16px; color: var(--select); }
+
+.menubar__menus { display: flex; align-items: center; gap: 2px; }
+
+.menubar__item,
+.menu > summary {
+  display: block;
+  padding: 3px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: var(--ink);
+  cursor: default;
+  white-space: nowrap;
+  list-style: none;
+}
+
+.menu > summary::-webkit-details-marker { display: none; }
+
+.menubar__item { cursor: pointer; }
+
+.menubar__item:hover,
+.menu > summary:hover,
+.menu[open] > summary {
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  color: var(--ink);
+}
+
+.menubar__item[aria-current="page"],
+.menu > summary.is-current { font-weight: 600; }
+
+.menu { position: relative; }
+
+.menu__panel {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  min-width: 250px;
+  padding: 5px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--frame) 86%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.18);
+}
+
+.menu__panel a {
   display: flex;
-  gap: clamp(14px, 3vw, 32px);
-  font-size: 15px;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 4px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: var(--ink);
 }
 
-.nav a { text-decoration: none; color: var(--muted); }
-.nav a:hover, .nav a[aria-current="page"] { color: var(--ink); }
-.nav a[aria-current="page"] { text-decoration: underline; }
+.menu__panel a span { color: var(--muted); }
+
+.menu__panel a:hover,
+.menu__panel a:focus-visible {
+  background: var(--select);
+  color: var(--select-ink);
+  outline: none;
+}
+
+.menu__panel a:hover span,
+.menu__panel a:focus-visible span { color: color-mix(in srgb, var(--select-ink) 80%, transparent); }
+
+.menu__panel a[aria-current="page"]::before { content: "✓"; margin-right: -14px; position: relative; left: -10px; width: 0; }
+.menu__panel a[aria-current="page"] { padding-left: 20px; }
+
+.menu__panel hr {
+  margin: 5px 10px;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+.menubar__status {
+  margin-left: auto;
+  padding-right: 6px;
+  color: var(--ink);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock { margin-left: 10px; }
 
 /* ---------- главная: первый экран ---------- */
 
@@ -315,7 +402,7 @@ a:hover { color: var(--select); }
   font-weight: 600;
   letter-spacing: -0.01em;
   position: sticky;
-  top: 88px;
+  top: 60px;
   align-self: start;
 }
 
@@ -467,6 +554,110 @@ a:hover { color: var(--select); }
 
 .plain-list { margin: 0; padding-left: 1.1em; }
 
+/* ---------- окно macOS вокруг скриншотов ---------- */
+
+.window {
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--frame);
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 18px 48px rgb(0 0 0 / 0.14);
+}
+
+.window__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 14px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.window__bar i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.2);
+}
+
+.window__bar i:nth-child(2) { background: #febc2e; }
+.window__bar i:nth-child(3) { background: #28c840; }
+
+.window__bar span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.window > img { width: 100%; }
+
+/* ---------- подпись как комментарий в Figma ---------- */
+
+.shot figcaption.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  max-width: 60ch;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.comment__avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--collab);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.comment__body {
+  padding: 7px 12px;
+  border-radius: 4px 12px 12px 12px;
+  background: var(--frame);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+}
+
+.comment__body b { font-weight: 600; margin-right: 8px; }
+
+/* ---------- курсор соавтора, как в Figma ---------- */
+
+.collab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 16;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.3s;
+}
+
+.collab.is-on { opacity: 1; }
+
+.collab svg { display: block; width: 24px; height: 24px; }
+
+.collab span {
+  display: inline-block;
+  margin: -4px 0 0 18px;
+  padding: 2px 8px;
+  border-radius: 4px 10px 10px 10px;
+  background: var(--collab);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
 /* ---------- обо мне ---------- */
 
 .about-hero {
@@ -550,11 +741,20 @@ a:hover { color: var(--select); }
   body { font-size: 16px; }
   .case-card__body, .chapter, .about-hero { grid-template-columns: 1fr; }
   .chapter h2 { position: static; }
-  .nav a.nav__ext { display: none; }
+  .menubar__status { display: none; }
+  .menubar__app { padding-right: 4px; }
+  .menubar__in { height: 44px; }
+  .menu__panel { min-width: 220px; }
+  .menubar__menus .menu:last-of-type .menu__panel { left: auto; right: 0; }
   .artboard { aspect-ratio: 4 / 3; }
 }
 
+@media (max-width: 480px) {
+  .menubar__app span { display: none; }
+  .menubar__item, .menu > summary { padding: 3px 8px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .sel { transition: opacity 0.01s; }
+  .sel, .collab { transition: opacity 0.01s; }
   html { scroll-behavior: auto; }
 }

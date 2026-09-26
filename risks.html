@@ -19,16 +19,34 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="logo" href="index.html">Даниил Бубнов</a>
-    <nav class="nav" aria-label="Основная навигация">
-      <a href="index.html#cases" aria-current="page">Кейсы</a>
-      <a href="about.html">Обо мне</a>
-      <a class="nav__ext" href="https://t.me/blauuberg">Telegram</a>
+<header class="menubar">
+  <div class="menubar__in">
+    <a class="menubar__app" href="index.html"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Даниил Бубнов</span></a>
+    <nav class="menubar__menus" aria-label="Основная навигация">
+      <details class="menu">
+        <summary class="is-current">Кейсы</summary>
+        <div class="menu__panel">
+          <a href="risks.html" aria-current="page">Оценка рисков<span>B2E</span></a>
+          <a href="kargo.html">Карго<span>B2B</span></a>
+          <hr>
+          <a href="index.html#cases">Все кейсы</a>
+        </div>
+      </details>
+      <a class="menubar__item" href="about.html">Обо мне</a>
+      <details class="menu">
+        <summary>Контакты</summary>
+        <div class="menu__panel">
+          <a href="https://t.me/blauuberg">Telegram<span>@blauuberg</span></a>
+          <a href="mailto:dd.bubnov@gmail.com">Почта<span>Gmail</span></a>
+          <a href="https://www.behance.net/d_bubnov">Behance<span>d_bubnov</span></a>
+          <hr>
+          <a href="assets/cv.pdf" download>Скачать резюме<span>PDF</span></a>
+        </div>
+      </details>
       <!-- Переключатель языка: уберите hidden, когда появится папка en/ -->
-      <a href="en/risks.html" lang="en" hreflang="en" hidden>EN</a>
+      <a class="menubar__item" href="en/risks.html" lang="en" hreflang="en" hidden>EN</a>
     </nav>
+    <div class="menubar__status">Москва <time class="clock"></time></div>
   </div>
 </header>
 
@@ -68,9 +86,12 @@
       <section class="task">
         <span class="task__num">Задача 1 из 3</span>
         <h2 class="task__title">Оценка рисков работы компании с внешними ИТ-сервисами</h2>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/risks/registry.jpg" alt="Единый реестр ИТ-сервисов с фильтрами по столбцам" loading="lazy"></div>
-          <figcaption>Единый реестр сервисов с оценкой критичности и рисков</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Оценка рисков</span></div>
+            <img src="assets/cases/risks/registry.jpg" alt="Единый реестр ИТ-сервисов с фильтрами по столбцам" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Единый реестр сервисов с оценкой критичности и рисков</span></figcaption>
         </figure>
       <section class="chapter">
         <h2>Проблема</h2>
@@ -95,9 +116,12 @@
           <p>Фильтры работают по каждому столбцу, как пользователи привыкли в Excel, а карточка продукта открывается сбоку — вся информация в одном окне.</p>
         </div>
       </section>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/risks/card-filters.jpg" alt="Карточка ИТ-продукта и фильтр по стране вендора" loading="lazy"></div>
-          <figcaption>Карточка продукта и фильтры: вся информация в одном окне</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Оценка рисков</span></div>
+            <img src="assets/cases/risks/card-filters.jpg" alt="Карточка ИТ-продукта и фильтр по стране вендора" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Карточка продукта и фильтры: вся информация в одном окне</span></figcaption>
         </figure>
       <section class="chapter">
         <h2>Результат</h2>
@@ -113,9 +137,12 @@
       <section class="task">
         <span class="task__num">Задача 2 из 3</span>
         <h2 class="task__title">Оценка и отправка мероприятий</h2>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/risks/events.jpg" alt="Расчёт мероприятий и индекса надёжности с боковой панелью редактирования" loading="lazy"></div>
-          <figcaption>Расчёт мероприятий и индекса надёжности с редактированием на месте</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Оценка рисков</span></div>
+            <img src="assets/cases/risks/events.jpg" alt="Расчёт мероприятий и индекса надёжности с боковой панелью редактирования" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Расчёт мероприятий и индекса надёжности с редактированием на месте</span></figcaption>
         </figure>
       <section class="chapter">
         <h2>Проблема</h2>
@@ -129,9 +156,12 @@
           <p class="statement">Доработал сервис генерации рисков, чтобы данные заполнялись прямо в нём. После заполнения они автоматически передаются во второй сервис.</p>
         </div>
       </section>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/risks/events-total.jpg" alt="Экран с мероприятиями, индексом надёжности и итоговой стоимостью" loading="lazy"></div>
-          <figcaption>Мероприятия, индекс надёжности и итоговая стоимость на одном экране</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Оценка рисков</span></div>
+            <img src="assets/cases/risks/events-total.jpg" alt="Экран с мероприятиями, индексом надёжности и итоговой стоимостью" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Мероприятия, индекс надёжности и итоговая стоимость на одном экране</span></figcaption>
         </figure>
       <section class="chapter">
         <h2>Результат</h2>
@@ -147,9 +177,12 @@
       <section class="task">
         <span class="task__num">Задача 3 из 3</span>
         <h2 class="task__title">Генерация типовых рисков</h2>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/risks/generation.jpg" alt="Оценка рисков сервиса с панелью генерации" loading="lazy"></div>
-          <figcaption>Оценка рисков сервиса с генерацией комбинаций по классификаторам</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Оценка рисков</span></div>
+            <img src="assets/cases/risks/generation.jpg" alt="Оценка рисков сервиса с панелью генерации" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Оценка рисков сервиса с генерацией комбинаций по классификаторам</span></figcaption>
         </figure>
       <section class="chapter">
         <h2>Проблема</h2>
@@ -163,9 +196,12 @@
           <p class="statement">Сделал автоматическую генерацию рисков. Пользователь выбирает подходящие значения по классификаторам, а сервис сам добавляет все возможные комбинации.</p>
         </div>
       </section>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/risks/generation-panel.jpg" alt="Панель генерации рисков с выбором значений классификаторов" loading="lazy"></div>
-          <figcaption>Панель генерации: выбор значений по трём классификаторам и комбинации</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Оценка рисков</span></div>
+            <img src="assets/cases/risks/generation-panel.jpg" alt="Панель генерации рисков с выбором значений классификаторов" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Панель генерации: выбор значений по трём классификаторам и комбинации</span></figcaption>
         </figure>
       <section class="chapter">
         <h2>Результат</h2>

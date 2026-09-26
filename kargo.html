@@ -19,16 +19,34 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="logo" href="index.html">Даниил Бубнов</a>
-    <nav class="nav" aria-label="Основная навигация">
-      <a href="index.html#cases" aria-current="page">Кейсы</a>
-      <a href="about.html">Обо мне</a>
-      <a class="nav__ext" href="https://t.me/blauuberg">Telegram</a>
+<header class="menubar">
+  <div class="menubar__in">
+    <a class="menubar__app" href="index.html"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Даниил Бубнов</span></a>
+    <nav class="menubar__menus" aria-label="Основная навигация">
+      <details class="menu">
+        <summary class="is-current">Кейсы</summary>
+        <div class="menu__panel">
+          <a href="risks.html">Оценка рисков<span>B2E</span></a>
+          <a href="kargo.html" aria-current="page">Карго<span>B2B</span></a>
+          <hr>
+          <a href="index.html#cases">Все кейсы</a>
+        </div>
+      </details>
+      <a class="menubar__item" href="about.html">Обо мне</a>
+      <details class="menu">
+        <summary>Контакты</summary>
+        <div class="menu__panel">
+          <a href="https://t.me/blauuberg">Telegram<span>@blauuberg</span></a>
+          <a href="mailto:dd.bubnov@gmail.com">Почта<span>Gmail</span></a>
+          <a href="https://www.behance.net/d_bubnov">Behance<span>d_bubnov</span></a>
+          <hr>
+          <a href="assets/cv.pdf" download>Скачать резюме<span>PDF</span></a>
+        </div>
+      </details>
       <!-- Переключатель языка: уберите hidden, когда появится папка en/ -->
-      <a href="en/kargo.html" lang="en" hreflang="en" hidden>EN</a>
+      <a class="menubar__item" href="en/kargo.html" lang="en" hreflang="en" hidden>EN</a>
     </nav>
+    <div class="menubar__status">Москва <time class="clock"></time></div>
   </div>
 </header>
 
@@ -71,9 +89,12 @@
           <p>Прошёл по всему сервису как пользователь. Зафиксировал каждый шаг, состояния формы, поведение системы при ошибках и отклонениях. Получилась карта экранов с отмеченными проблемными местами.</p>
         </div>
       </section>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/kargo/screen-map.jpg" alt="Карта экранов текущего сервиса с отмеченными проблемами" loading="lazy"></div>
-          <figcaption>Карта экранов с отмеченными проблемными местами</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Карго</span></div>
+            <img src="assets/cases/kargo/screen-map.jpg" alt="Карта экранов текущего сервиса с отмеченными проблемами" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Карта экранов с отмеченными проблемными местами</span></figcaption>
         </figure>
       <section class="chapter">
         <h2>Глубинные интервью</h2>
@@ -119,13 +140,19 @@
           <p class="statement">Добавил дроер, который ищет ответ по базе актуальных инструкций, выдаёт готовый ответ и прикрепляет подходящие материалы.</p>
         </div>
       </section>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/kargo/support-start.jpg" alt="Центр поддержки с динамическими подсказками и частыми запросами" loading="lazy"></div>
-          <figcaption>Начало работы: динамические подсказки и частые запросы</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Карго</span></div>
+            <img src="assets/cases/kargo/support-start.jpg" alt="Центр поддержки с динамическими подсказками и частыми запросами" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Начало работы: динамические подсказки и частые запросы</span></figcaption>
         </figure>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/kargo/support-answer.jpg" alt="Ответ ассистента на основе инструкций со ссылками на материалы" loading="lazy"></div>
-          <figcaption>Ответ ИИ на основе инструкций и подходящие материалы</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Карго</span></div>
+            <img src="assets/cases/kargo/support-answer.jpg" alt="Ответ ассистента на основе инструкций со ссылками на материалы" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Ответ ИИ на основе инструкций и подходящие материалы</span></figcaption>
         </figure>
       </section>
 
@@ -150,13 +177,19 @@
           <p class="statement">Разделил процесс на шаги с логичной структурой и встроенными подсказками. У каждого поля есть пояснение, а лишние поля скрываются.</p>
         </div>
       </section>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/kargo/step-form.jpg" alt="Пошаговая форма регистрации программного обеспечения" loading="lazy"></div>
-          <figcaption>Пошаговая форма регистрации с подсказками</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Карго</span></div>
+            <img src="assets/cases/kargo/step-form.jpg" alt="Пошаговая форма регистрации программного обеспечения" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Пошаговая форма регистрации с подсказками</span></figcaption>
         </figure>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/kargo/before-after.jpg" alt="Сравнение старой формы и новой пошаговой" loading="lazy"></div>
-          <figcaption>Было: одна длинная форма без структуры. Стало: форма по этапам</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Карго</span></div>
+            <img src="assets/cases/kargo/before-after.jpg" alt="Сравнение старой формы и новой пошаговой" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Было: одна длинная форма без структуры. Стало: форма по этапам</span></figcaption>
         </figure>
       </section>
 
@@ -181,9 +214,12 @@
           <p class="statement">Показал этапы согласования на странице каждой программы и в карточках на главной. На странице видны согласующие эксперты, которым можно задать вопрос.</p>
         </div>
       </section>
-        <figure class="shot" data-select data-select-target=".artboard">
-          <div class="artboard artboard--auto"><img src="assets/cases/kargo/status-page.jpg" alt="Страница программы с виджетом этапов согласования" loading="lazy"></div>
-          <figcaption>Страница программы с виджетом этапов согласования и экспертами</figcaption>
+        <figure class="shot" data-select data-select-target=".window">
+          <div class="window">
+            <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Карго</span></div>
+            <img src="assets/cases/kargo/status-page.jpg" alt="Страница программы с виджетом этапов согласования" loading="lazy">
+          </div>
+          <figcaption class="comment"><span class="comment__avatar" aria-hidden="true">Д</span><span class="comment__body"><b>Даниил</b>Страница программы с виджетом этапов согласования и экспертами</span></figcaption>
         </figure>
       </section>
 

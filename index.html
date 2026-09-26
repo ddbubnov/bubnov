@@ -19,16 +19,34 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="logo" href="index.html">Даниил Бубнов</a>
-    <nav class="nav" aria-label="Основная навигация">
-      <a href="index.html#cases" aria-current="page">Кейсы</a>
-      <a href="about.html">Обо мне</a>
-      <a class="nav__ext" href="https://t.me/blauuberg">Telegram</a>
+<header class="menubar">
+  <div class="menubar__in">
+    <a class="menubar__app" href="index.html"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Даниил Бубнов</span></a>
+    <nav class="menubar__menus" aria-label="Основная навигация">
+      <details class="menu">
+        <summary class="is-current">Кейсы</summary>
+        <div class="menu__panel">
+          <a href="risks.html">Оценка рисков<span>B2E</span></a>
+          <a href="kargo.html">Карго<span>B2B</span></a>
+          <hr>
+          <a href="index.html#cases">Все кейсы</a>
+        </div>
+      </details>
+      <a class="menubar__item" href="about.html">Обо мне</a>
+      <details class="menu">
+        <summary>Контакты</summary>
+        <div class="menu__panel">
+          <a href="https://t.me/blauuberg">Telegram<span>@blauuberg</span></a>
+          <a href="mailto:dd.bubnov@gmail.com">Почта<span>Gmail</span></a>
+          <a href="https://www.behance.net/d_bubnov">Behance<span>d_bubnov</span></a>
+          <hr>
+          <a href="assets/cv.pdf" download>Скачать резюме<span>PDF</span></a>
+        </div>
+      </details>
       <!-- Переключатель языка: уберите hidden, когда появится папка en/ -->
-      <a href="en/index.html" lang="en" hreflang="en" hidden>EN</a>
+      <a class="menubar__item" href="en/index.html" lang="en" hreflang="en" hidden>EN</a>
     </nav>
+    <div class="menubar__status">Москва <time class="clock"></time></div>
   </div>
 </header>
 
@@ -51,11 +69,6 @@
           <h2>Сервис оценки рисков работы банка с&nbsp;внешними ИТ-системами</h2>
           <div>
             <p>Перенёс оценку рисков из Excel и почты в единый сервис, собрал мероприятия в один поток и автоматизировал генерацию типовых рисков.</p>
-            <dl class="meta">
-              <div><dt>Роль</dt><dd>UX/UI дизайнер</dd></div>
-              <div><dt>Тип</dt><dd>B2E, enterprise</dd></div>
-              <div><dt>Итог</dt><dd>Потерянных рисков ~1% вместо ~10%</dd></div>
-            </dl>
           </div>
         </div>
       </a>
@@ -69,11 +82,6 @@
           <h2>Сервис проверки новых программ перед внедрением в&nbsp;компанию</h2>
           <div>
             <p>Провёл UX-аудит, разобрал интервью и предложил три решения: ИИ-справку по инструкциям, пошаговую форму заявки и прозрачный статус согласования.</p>
-            <dl class="meta">
-              <div><dt>Роль</dt><dd>UX/UI дизайнер</dd></div>
-              <div><dt>Тип</dt><dd>B2B, внутренний сервис</dd></div>
-              <div><dt>Итог</dt><dd>Концепт принят в разработку</dd></div>
-            </dl>
           </div>
         </div>
       </a>
