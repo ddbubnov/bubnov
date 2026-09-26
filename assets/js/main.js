@@ -125,6 +125,7 @@
       if (menus.some(function (x) { return x.open; }) && !m.open) { closeAll(m); m.setAttribute("open", ""); }
     });
   });
+  window.addEventListener("pageshow", function () { closeAll(null); });
   document.addEventListener("click", function (e) {
     if (!e.target.closest(".menu")) closeAll(null);
   });

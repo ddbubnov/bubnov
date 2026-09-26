@@ -24,8 +24,6 @@
 
   color-scheme: light dark;
   box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -84,11 +82,13 @@ a:hover { color: var(--select); }
   position: sticky;
   top: 0;
   z-index: 30;
-  background: color-mix(in srgb, var(--canvas) 72%, transparent);
+  background: var(--canvas);
+  background: color-mix(in srgb, var(--canvas) 90%, transparent);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  border-bottom: 1px solid var(--line);
   font-size: 14px;
+  isolation: isolate;
 }
 
 .menubar__in {
@@ -126,12 +126,14 @@ a:hover { color: var(--select); }
 }
 
 .menu > summary::-webkit-details-marker { display: none; }
+.menu > summary::marker { content: ""; }
 
 .menubar__item { cursor: pointer; }
 
 .menubar__item:hover,
 .menu > summary:hover,
 .menu[open] > summary {
+  background: rgb(128 128 128 / 0.2);
   background: color-mix(in srgb, var(--ink) 10%, transparent);
   color: var(--ink);
 }
@@ -148,10 +150,8 @@ a:hover { color: var(--select); }
   min-width: 250px;
   padding: 5px;
   border-radius: 10px;
-  background: color-mix(in srgb, var(--frame) 86%, transparent);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: var(--frame);
+  border: 1px solid var(--line);
   box-shadow: 0 10px 30px rgb(0 0 0 / 0.18);
 }
 
@@ -183,7 +183,7 @@ a:hover { color: var(--select); }
 .menu__panel hr {
   margin: 5px 10px;
   border: 0;
-  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-top: 1px solid var(--line);
 }
 
 .menubar__status {
@@ -560,7 +560,7 @@ a:hover { color: var(--select); }
   overflow: hidden;
   border-radius: 12px;
   background: var(--frame);
-  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border: 1px solid var(--line);
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 18px 48px rgb(0 0 0 / 0.14);
 }
 
@@ -571,7 +571,7 @@ a:hover { color: var(--select); }
   gap: 8px;
   height: 34px;
   padding: 0 14px;
-  border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  border-bottom: 1px solid var(--line);
   font-size: 13px;
   color: var(--muted);
 }
@@ -744,8 +744,8 @@ a:hover { color: var(--select); }
   .menubar__status { display: none; }
   .menubar__app { padding-right: 4px; }
   .menubar__in { height: 44px; }
+  .menu__panel { position: fixed; top: 48px; left: 8px; right: 8px; }
   .menu__panel { min-width: 220px; }
-  .menubar__menus .menu:last-of-type .menu__panel { left: auto; right: 0; }
   .artboard { aspect-ratio: 4 / 3; }
 }
 
